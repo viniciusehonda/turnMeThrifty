@@ -1,4 +1,5 @@
 {
     "404": "Página não encontrada",
-    "server_error": "Ocorreu um erro no servidor. Por favor tente novamente mais tarde."
+    "server_error": "Ocorreu um erro no servidor. Por favor tente novamente mais tarde.",
+    "email_send_error": "Erro ao enviar o e-mail"
 }
