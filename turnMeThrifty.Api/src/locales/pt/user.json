@@ -9,5 +9,10 @@
     "password_not_match": "As senhas não coincidem",
     "user_create_success": "O usuário foi registrado com sucesso",
     "password_validation_error": "Não foi possível validar a senha",
-    "account_exists": "Essa conta já existe"
+    "account_exists": "Essa conta já existe",
+    "verificatione_email_subject": "Por favor verifique seu e-mail",
+    "verification_code": "Código de Verificação",
+    "could_not_verify_user": "Não foi possível verificar o usuário",
+    "user_already_verified": "O usuário já foi verificado",
+    "user_verify_success": "O usuário foi verificado com sucesso"
 }
