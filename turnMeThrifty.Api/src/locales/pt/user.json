@@ -1,0 +1,13 @@
+{
+    "first_name_required": "Nome é obrigatório",
+    "last_name_required": "Sobrenome é obrigatório",
+    "password_required": "Senha é obrigatória",
+    "password_short": "Senha muito curta - deve ter no mínimo 6 caracteres",
+    "password_confirmation_required": "Confirmação da senha é obrigatória",
+    "email_required": "E-mail é obrigatório",
+    "email_not_valid": "E-mail inválido",
+    "password_not_match": "As senhas não coincidem",
+    "user_create_success": "O usuário foi registrado com sucesso",
+    "password_validation_error": "Não foi possível validar a senha",
+    "account_exists": "Essa conta já existe"
+}
