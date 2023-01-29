@@ -1,8 +1,9 @@
 import { debug } from 'console';
 import { Request, Response } from 'express'
 import i18next from 'i18next';
-import { CreateUserInput, VerifyUserInput } from '../schema/user.schema';
-import { createUser, findUserById } from '../service/user.service';
+import { nanoid } from 'nanoid';
+import { CreateUserInput, ForgotPasswordInput, VerifyUserInput } from '../schema/user.schema';
+import { createUser, findUserByEmail, findUserById } from '../service/user.service';
 import log from '../utils/logger';
 import sendEmail from '../utils/mailer';
 
@@ -62,4 +63,40 @@ export async function verifyUserHandler(req: Request<VerifyUserInput>, res: Resp
     } catch (e: any) {
         return res.status(500).send(e);
     }
+}
+
+export async function forgotPasswordHandler(req: Request<{}, {}, ForgotPasswordInput>, res: Response) {
+
+    const message = 
+        "If a user with that e-mail is registered you will receive a password reset email";
+
+    const { email } = req.body;
+
+    const user = await findUserByEmail(email);
+
+    if (!user) {
+            log.debug(`User with email ${email} does not exits`);
+        return res.send(message);
+    }
+
+    if (!user.verified) {
+        return res.send("User is not verified");
+    }
+
+    const passwordResetCode = nanoid();
+
+    user.passwordResetCode = passwordResetCode;
+
+    await user.save();
+
+    await sendEmail({
+        to: user.email,
+        from: "test@example.com",
+        subject: "Reset your password",
+        text: `Password reset code: ${passwordResetCode}. Id ${user._id}`,
+    });
+
+    log.debug(`Password reset email sent to ${user.email}`);
+
+    return res.send(message);
 }
