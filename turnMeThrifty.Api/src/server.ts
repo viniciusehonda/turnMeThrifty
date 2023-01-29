@@ -12,6 +12,8 @@ const app: Express = express();
 
 const port = config.get('port');
 
+app.use(express.json());
+
 app.use(router);
 
 initializeInternationalization();
