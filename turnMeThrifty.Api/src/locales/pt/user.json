@@ -14,5 +14,7 @@
     "verification_code": "Código de Verificação",
     "could_not_verify_user": "Não foi possível verificar o usuário",
     "user_already_verified": "O usuário já foi verificado",
-    "user_verify_success": "O usuário foi verificado com sucesso"
+    "user_verify_success": "O usuário foi verificado com sucesso",
+    "password_reset_success": "Senha redefinida com sucesso",
+    "password_reset_error": "Não foi possível redefinir a senha"
 }

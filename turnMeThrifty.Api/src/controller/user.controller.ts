@@ -2,7 +2,7 @@ import { debug } from 'console';
 import { Request, Response } from 'express'
 import i18next from 'i18next';
 import { nanoid } from 'nanoid';
-import { CreateUserInput, ForgotPasswordInput, VerifyUserInput } from '../schema/user.schema';
+import { CreateUserInput, ForgotPasswordInput, ResetPasswordInput, VerifyUserInput } from '../schema/user.schema';
 import { createUser, findUserByEmail, findUserById } from '../service/user.service';
 import log from '../utils/logger';
 import sendEmail from '../utils/mailer';
@@ -67,7 +67,7 @@ export async function verifyUserHandler(req: Request<VerifyUserInput>, res: Resp
 
 export async function forgotPasswordHandler(req: Request<{}, {}, ForgotPasswordInput>, res: Response) {
 
-    const message = 
+    const message =
         "If a user with that e-mail is registered you will receive a password reset email";
 
     const { email } = req.body;
@@ -75,7 +75,7 @@ export async function forgotPasswordHandler(req: Request<{}, {}, ForgotPasswordI
     const user = await findUserByEmail(email);
 
     if (!user) {
-            log.debug(`User with email ${email} does not exits`);
+        log.debug(`User with email ${email} does not exits`);
         return res.send(message);
     }
 
@@ -99,4 +99,34 @@ export async function forgotPasswordHandler(req: Request<{}, {}, ForgotPasswordI
     log.debug(`Password reset email sent to ${user.email}`);
 
     return res.send(message);
+}
+
+export async function resetPasswordHandler(
+    req: Request<ResetPasswordInput["params"], {}, ResetPasswordInput["body"]>,
+    res: Response
+) {
+    try {
+        const { id, passwordResetCode } = req.params;
+        const { password } = req.body;
+
+        const user = await findUserById(id);
+
+        if (!user || !user.passwordResetCode || user.passwordResetCode !== passwordResetCode) {
+            return res.status(400).send(i18next.t("user:password_reset_error"));
+        }
+
+        user.passwordResetCode = null;
+        user.password = password;
+
+        await user.save();
+
+        res.status(200).send(i18next.t("user:password_reset_success"));
+    }
+    catch (e: any) {
+        res.status(500).send(e);
+    }
+}
+
+export async function getCurrentUserHandler(req: Request, res: Response) {
+    return res.send(res.locals.user);
 }

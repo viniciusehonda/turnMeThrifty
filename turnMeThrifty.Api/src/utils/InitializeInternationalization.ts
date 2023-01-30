@@ -12,12 +12,14 @@ export function initializeInternationalization() {
                 en: {
                     common: require('../locales/en/common.json'),
                     error: require('../locales/en/error.json'),
-                    user: require('../locales/en/user.json')
+                    user: require('../locales/en/user.json'),
+                    auth: require('../locales/en/auth.json')
                 },
                 pt: {
                     common: require('../locales/pt/common.json'),
                     error: require('../locales/pt/error.json'),
-                    user: require('../locales/en/user.json')
+                    user: require('../locales/pt/user.json'),
+                    auth: require('../locales/pt/auth.json')
                 }
             }
         });

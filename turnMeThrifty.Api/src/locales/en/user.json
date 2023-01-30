@@ -14,6 +14,8 @@
     "verification_code": "Verification Code",
     "could_not_verify_user": "Could not verify user",
     "user_already_verified": "User is already verified",
-    "user_verify_success": "User sucessfully verified"
+    "user_verify_success": "User sucessfully verified",
+    "password_reset_success": "Successfully reset password",
+    "password_reset_error": "Could not reset user password"
 
 }
